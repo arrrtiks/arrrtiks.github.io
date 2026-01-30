@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Лебедин Виталий</title>
 <style>
-/* сюда весь CSS из lebedin1st.html */
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #f9f9f9;
@@ -17,7 +16,75 @@ body {
     overflow: hidden;
     position: relative;
 }
-/* остальной CSS ... */
+
+.card {
+    position: relative;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.card h1 {
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: #222;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card a.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: white;
+    background: black;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card a.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.card a.telegram { background: #229ED9; }
+.card a.whatsapp { background: #25D366; }
+
+.card .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+footer {
+    font-size: 12px;
+    color: #888;
+}
+
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
 </style>
 </head>
 <body>
@@ -49,7 +116,6 @@ body {
 </div>
 
 <script>
-// JS код с падающими цифрами
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
 
