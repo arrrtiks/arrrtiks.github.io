@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Мины</title>
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px 35px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.card h1 {
+    margin-bottom: 15px;
+    font-size: 26px;
+    color: #222;
+}
+
+#chance {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    grid-template-rows: repeat(5, 60px);
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.cell {
+    background: #f0f0f0;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.cell:hover {
+    background: #e0e0e0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.button, select {
+    padding: 8px 15px;
+    border-radius: 12px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.button:hover, select:hover {
+    opacity: 0.85;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Мины</h1>
+
+    <div id="chance">Выберите количество мин</div>
+
+    <div class="buttons">
+        <select id="mineCount">
+            <!-- Генерация 1–24 -->
+            <script>
+            for(let i=1;i<=24;i++){
+                document.write(`<option value="${i}">${i} мин</option>`);
+            }
+            </script>
+        </select>
+        <button class="button" onclick="startGame()">Начать игру</button>
+        <button class="button" onclick="resetBoard()">Сбросить</button>
+        <a class="button" href="lebedin1st.html">← Вернуться назад</a>
+    </div>
+
+    <div id="board"></div>
+</div>
+
+<script>
+const board = document.getElementById('board');
+const chanceDisplay = document.getElementById('chance');
+let cells = [];
+let mines = [];
+let mineCount = 1;
+let gameOver = false;
+
+function startGame(){
+    mineCount = parseInt(document.getElementById('mineCount').value);
+    createBoard();
+    calculateChance();
+}
+
+function createBoard(){
+    board.innerHTML = '';
+    cells = [];
+    mines = [];
+    gameOver = false;
+    chanceDisplay.style.display = 'block';
+
+    // Размещение мин случайно
+    let allIndices = Array.from({length:25}, (_,i)=>i);
+    for(let i=0;i<mineCount;i++){
+        let idx = allIndices.splice(Math.floor(Math.random()*allIndices.length),1)[0];
+        mines.push(idx);
+    }
+
+    for(let i=0;i<25;i++){
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.addEventListener('click', ()=>clickCell(i));
+        board.appendChild(cell);
+        cells.push(cell);
+    }
+}
+
+function clickCell(i){
+    if(gameOver || cells[i].textContent!=='') return;
+
+    if(mines.includes(i)){
+        cells[i].textContent = '💣';
+        gameOver = true;
+        chanceDisplay.textContent = 'Вы проиграли';
+    } else {
+        cells[i].textContent = '✅';
+        calculateChance();
+        checkWin();
+    }
+}
+
+function calculateChance(){
+    if(gameOver) return;
+    let unopened = cells.filter(c=>c.textContent==='').length;
+    let remainingMines = mineCount - cells.filter(c=>c.textContent==='💣').length;
+    let chance = unopened>0 ? ((unopened-remainingMines)/unopened)*100 : 0;
+    chanceDisplay.textContent = 'Шанс следующего хода: ' + chance.toFixed(2) + '%';
+}
+
+function checkWin(){
+    let safeOpened = cells.filter(c=>c.textContent==='✅').length;
+    if(safeOpened === 25 - mineCount){
+        gameOver = true;
+        let openedPercent = ((safeOpened)/(25 - mineCount)*100).toFixed(2);
+        chanceDisplay.textContent = 'Вы выиграли! Прогресс: '+openedPercent+'%';
+    }
+}
+
+function resetBoard(){
+    createBoard();
+}
+</script>
+
+</body>
+  </html>
