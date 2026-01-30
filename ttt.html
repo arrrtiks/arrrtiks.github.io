@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Tic-Tac-Toe</title>
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px 35px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.card h1 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #222;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.cell {
+    background: #f0f0f0;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.cell:hover {
+    background: #e0e0e0;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 15px;
+    display: none;
+    z-index: 2;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button {
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.button:hover {
+    opacity: 0.85;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Tic-Tac-Toe</h1>
+
+    <div id="board"></div>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="buttons">
+        <button class="button" onclick="resetBoard()">Сбросить</button>
+        <a class="button" href="lebedin1st.html">← Вернуться назад</a>
+    </div>
+</div>
+
+<script>
+const board = document.getElementById('board');
+const overlay = document.getElementById('overlay');
+
+let cells = [];
+let player = 'X';
+let gameOver = false;
+
+// Создание доски
+function createBoard() {
+    board.innerHTML = '';
+    cells = [];
+    gameOver = false;
+    overlay.style.display = 'none';
+    for(let i = 0; i < 9; i++){
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.addEventListener('click', () => makeMove(i));
+        board.appendChild(cell);
+        cells.push(cell);
+    }
+}
+
+// Ход игрока
+function makeMove(i){
+    if(gameOver || cells[i].textContent !== '') return;
+    cells[i].textContent = player;
+    if(checkWin(player)){
+        showOverlay(player + ' выиграл!');
+        gameOver = true;
+        return;
+    }
+    if(cells.every(c => c.textContent !== '')){
+        showOverlay('Ничья!');
+        gameOver = true;
+        return;
+    }
+    botMove();
+}
+
+// Ход бота
+function botMove(){
+    let emptyIndices = cells.map((c, idx) => c.textContent === '' ? idx : null).filter(i => i !== null);
+    let move = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+    cells[move].textContent = 'O';
+    if(checkWin('O')){
+        showOverlay('Бот выиграл!');
+        gameOver = true;
+    }
+}
+
+// Проверка победы
+function checkWin(p){
+    const combos = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+    ];
+    return combos.some(combo => combo.every(idx => cells[idx].textContent === p));
+}
+
+// Показать overlay
+function showOverlay(text){
+    overlay.textContent = text;
+    overlay.style.display = 'block';
+}
+
+// Сброс
+function resetBoard(){
+    createBoard();
+}
+
+createBoard();
+</script>
+
+</body>
+</html>
