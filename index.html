@@ -2,7 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Лебедин Виталий</title>
+<title>Тестовый сайт</title>
+
+<meta name="kadam-verification" content="kadamacc6127944940414c661120ed97c27f6" />
+
 <style>
 * {
     box-sizing: border-box;
@@ -112,21 +115,6 @@ footer {
     font-size: 12px;
     color: #888;
 }
-
-/* ===== EASTER EGG ===== */
-.easter-egg {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 14px;
-    opacity: 0.4;
-    cursor: pointer;
-    user-select: none;
-    transition: opacity 0.3s;
-}
-.easter-egg:hover {
-    opacity: 0.8;
-}
 </style>
 </head>
 <body>
@@ -136,11 +124,11 @@ footer {
 <div class="wrapper">
 
     <div class="card">
-        <h1>Лебедин Виталий</h1>
+        <h1>Тестовый сайт</h1>
 
         <div class="social-buttons">
             <a class="button telegram" href="https://t.me/svosint" target="_blank">📲 Telegram</a>
-            <a class="button whatsapp" href="https://wa.me/77711143045" target="_blank">💬 WhatsApp</a>
+            <a class="button whatsapp" href="#" onclick="alert('Невозможно открыть чат с этим контактом :(')">💬 WhatsApp</a>
         </div>
 
         <div class="buttons">
@@ -151,8 +139,6 @@ footer {
         </div>
 
         <footer>Сайт сделан с помощью ChatGPT</footer>
-
-        <div class="easter-egg" onclick="alert('Секрет найден! 🖖')">💾</div>
     </div>
 
 </div>
@@ -178,7 +164,7 @@ function draw() {
     ctx.fillStyle = "rgba(0,0,0,0.05)";
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    ctx.fillStyle = "#0ff";
+    ctx.fillStyle = "#00ff55"; // зелёные цифры
     ctx.font = fontSize + "px monospace";
 
     for(let i=0;i<drops.length;i++){
