@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Лебедин Виталий</title>
+
 <style>
 * {
     box-sizing: border-box;
@@ -15,24 +16,79 @@ body {
     overflow: hidden;
 }
 
-/* ====== LAYOUT ====== */
-.page {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-    padding: 30px;
-    gap: 25px;
+/* ===== MATRIX BACKGROUND ===== */
+canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
 }
 
-/* ====== MAIN CARD ====== */
+/* ===== CENTER WRAPPER ===== */
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== SCROLLING ADS ===== */
+.ads-wrapper {
+    position: absolute;
+    width: 260px;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.ads-track {
+    position: absolute;
+    width: 100%;
+    animation: adsScroll 20s linear infinite;
+}
+
+@keyframes adsScroll {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0); }
+}
+
+.ad-card {
+    height: 120px;
+    margin: 16px 0;
+    border-radius: 18px;
+    color: white;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ad-card span {
+    font-size: 12px;
+    font-weight: normal;
+    opacity: 0.85;
+    margin-top: 6px;
+}
+
+.red { background: #e74c3c; }
+.purple { background: #8e44ad; }
+.blue { background: #3498db; }
+.green { background: #2ecc71; }
+.orange { background: #e67e22; }
+
+/* ===== MAIN CARD ===== */
 .card {
+    position: relative;
     background: white;
     padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    border-radius: 22px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.18);
     max-width: 480px;
-    width: 100%;
+    width: 90%;
     text-align: center;
     z-index: 2;
 }
@@ -42,6 +98,7 @@ body {
     font-size: 28px;
 }
 
+/* ===== BUTTONS ===== */
 .social-buttons {
     display: flex;
     justify-content: center;
@@ -85,67 +142,33 @@ footer {
     font-size: 12px;
     color: #777;
 }
-
-/* ====== SCROLLING CARDS ====== */
-.ads-column {
-    width: 230px;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.ads-track {
-    position: absolute;
-    width: 100%;
-    animation: scrollAds 18s linear infinite;
-}
-
-@keyframes scrollAds {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-}
-
-.ad-card {
-    height: 120px;
-    margin-bottom: 15px;
-    border-radius: 18px;
-    color: white;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    font-weight: bold;
-}
-
-.ad-card span {
-    font-size: 12px;
-    font-weight: normal;
-    opacity: 0.85;
-    margin-top: 6px;
-}
-
-.red { background: #e74c3c; }
-.purple { background: #8e44ad; }
-.blue { background: #3498db; }
-.green { background: #2ecc71; }
-.orange { background: #e67e22; }
-
-/* ====== MATRIX BACKGROUND ====== */
-canvas {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
 </style>
 </head>
 <body>
 
 <canvas id="matrix"></canvas>
 
-<div class="page">
+<div class="wrapper">
 
+    <!-- Прокручивающиеся карточки (под основной) -->
+    <div class="ads-wrapper">
+        <div class="ads-track">
+            <div class="ad-card red">Казино<span>это ужасная вещь, не играйте</span></div>
+            <div class="ad-card purple">Салон красоты<span>стань красоткой как Арина</span></div>
+            <div class="ad-card blue">Онлайн курсы<span>научим за 3 дня</span></div>
+            <div class="ad-card green">Фастфуд<span>ешь и жалей</span></div>
+            <div class="ad-card orange">Крипта<span>вложи всё и исчезни</span></div>
+
+            <!-- дубликат для бесконечной прокрутки -->
+            <div class="ad-card red">Казино<span>это ужасная вещь, не играйте</span></div>
+            <div class="ad-card purple">Салон красоты<span>стань красоткой как Арина</span></div>
+            <div class="ad-card blue">Онлайн курсы<span>научим за 3 дня</span></div>
+            <div class="ad-card green">Фастфуд<span>ешь и жалей</span></div>
+            <div class="ad-card orange">Крипта<span>вложи всё и исчезни</span></div>
+        </div>
+    </div>
+
+    <!-- Основная карточка -->
     <div class="card">
         <h1>Лебедин Виталий</h1>
 
@@ -162,23 +185,6 @@ canvas {
         </div>
 
         <footer>Сайт сделан с помощью ChatGPT</footer>
-    </div>
-
-    <div class="ads-column">
-        <div class="ads-track">
-            <div class="ad-card red">Казино<span>это ужасная вещь, не играйте</span></div>
-            <div class="ad-card purple">Салон красоты<span>стань красоткой как Арина</span></div>
-            <div class="ad-card blue">Онлайн курсы<span>научим за 3 дня</span></div>
-            <div class="ad-card green">Фастфуд<span>ешь и жалей</span></div>
-            <div class="ad-card orange">Крипта<span>вложи всё и исчезни</span></div>
-
-            <!-- дубликат для бесконечной прокрутки -->
-            <div class="ad-card red">Казино<span>это ужасная вещь, не играйте</span></div>
-            <div class="ad-card purple">Салон красоты<span>стань красоткой как Арина</span></div>
-            <div class="ad-card blue">Онлайн курсы<span>научим за 3 дня</span></div>
-            <div class="ad-card green">Фастфуд<span>ешь и жалей</span></div>
-            <div class="ad-card orange">Крипта<span>вложи всё и исчезни</span></div>
-        </div>
     </div>
 
 </div>
