@@ -3,226 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <title>Лебедин Виталий</title>
-
 <style>
-* {
-    box-sizing: border-box;
-}
-
 body {
-    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f5f5f5;
-    overflow: hidden;
-}
-
-/* ===== MATRIX BACKGROUND ===== */
-canvas {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* ===== CENTER WRAPPER ===== */
-.wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
+    background: #f9f9f9;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-/* ===== SCROLLING ADS ===== */
-.ads-wrapper {
-    position: absolute;
-    width: 260px;
-    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
     overflow: hidden;
-    z-index: 1;
+    position: relative;
 }
 
-.ads-track {
-    position: absolute;
-    width: 100%;
-    animation: adsScroll 20s linear infinite;
-}
-
-@keyframes adsScroll {
-    from { transform: translateY(-50%); }
-    to { transform: translateY(0); }
-}
-
-.ad-card {
-    height: 120px;
-    margin: 16px 0;
-    border-radius: 18px;
-    color: white;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    font-weight: bold;
-}
-
-.ad-card span {
-    font-size: 12px;
-    font-weight: normal;
-    opacity: 0.85;
-    margin-top: 6px;
-}
-
-.red { background: #e74c3c; }
-.purple { background: #8e44ad; }
-.blue { background: #3498db; }
-.green { background: #2ecc71; }
-.orange { background: #e67e22; }
-
-/* ===== MAIN CARD ===== */
 .card {
     position: relative;
     background: white;
     padding: 30px 40px;
-    border-radius: 22px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.18);
-    max-width: 480px;
-    width: 90%;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    max-width: 500px;
+    width: 100%;
     text-align: center;
     z-index: 2;
 }
 
 .card h1 {
-    margin: 0 0 25px;
+    margin-bottom: 25px;
     font-size: 28px;
+    color: #222;
 }
 
-/* ===== BUTTONS ===== */
 .social-buttons {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.button {
+.card a.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 14px;
+    padding: 10px 15px;
+    border-radius: 12px;
     font-size: 14px;
     color: white;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    background: black;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.button:hover {
+.card a.button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 }
 
-.telegram { background: #229ED9; }
-.whatsapp { background: #25D366; }
+.card a.telegram { background: #229ED9; }
+.card a.whatsapp { background: #25D366; }
 
-.buttons {
+.card .buttons {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    margin-bottom: 18px;
-}
-
-.buttons .button {
-    background: #000;
-    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 footer {
     font-size: 12px;
-    color: #777;
+    color: #888;
+}
+
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
 }
 </style>
 </head>
 <body>
 
-<canvas id="matrix"></canvas>
+<canvas id="matrixCanvas"></canvas>
 
-<div class="wrapper">
+<div class="card">
+    <h1>Лебедин Виталий</h1>
 
-    <!-- Прокручивающиеся карточки (под основной) -->
-    <div class="ads-wrapper">
-        <div class="ads-track">
-            <div class="ad-card red">Казино<span>это ужасная вещь, не играйте</span></div>
-            <div class="ad-card purple">Салон красоты<span>стань красоткой как Арина</span></div>
-            <div class="ad-card blue">Онлайн курсы<span>научим за 3 дня</span></div>
-            <div class="ad-card green">Фастфуд<span>ешь и жалей</span></div>
-            <div class="ad-card orange">Крипта<span>вложи всё и исчезни</span></div>
-
-            <!-- дубликат для бесконечной прокрутки -->
-            <div class="ad-card red">Казино<span>это ужасная вещь, не играйте</span></div>
-            <div class="ad-card purple">Салон красоты<span>стань красоткой как Арина</span></div>
-            <div class="ad-card blue">Онлайн курсы<span>научим за 3 дня</span></div>
-            <div class="ad-card green">Фастфуд<span>ешь и жалей</span></div>
-            <div class="ad-card orange">Крипта<span>вложи всё и исчезни</span></div>
-        </div>
+    <div class="social-buttons">
+        <a class="button telegram" href="https://t.me/svosint" target="_blank">
+            📲 Telegram
+        </a>
+        <a class="button whatsapp" href="https://wa.me/77711143045" target="_blank">
+            💬 WhatsApp
+        </a>
     </div>
 
-    <!-- Основная карточка -->
-    <div class="card">
-        <h1>Лебедин Виталий</h1>
-
-        <div class="social-buttons">
-            <a class="button telegram" href="https://t.me/svosint" target="_blank">📲 Telegram</a>
-            <a class="button whatsapp" href="https://wa.me/77711143045" target="_blank">💬 WhatsApp</a>
-        </div>
-
-        <div class="buttons">
-            <a class="button" href="teacher.html">👩‍🏫 Новая страница</a>
-            <a class="button" href="ttt.html">❌⭕ Tic-Tac-Toe</a>
-            <a class="button" href="mines.html">💣 Мины</a>
-            <a class="button" href="boa.html">🌟 Вдохновитель</a>
-        </div>
-
-        <footer>Сайт сделан с помощью ChatGPT</footer>
+    <div class="buttons">
+        <a class="button" href="teacher.html">👩‍🏫 Битикова К. Б.</a>
+        <a class="button" href="ttt.html">❌⭕ Tic-Tac-Toe</a>
+        <a class="button" href="mines.html">💣 Мины</a>
+        <a class="button" href="boa.html">🌟 Вдохновитель</a>
     </div>
 
+    <footer>
+        Сайт сделан с помощью ChatGPT
+    </footer>
 </div>
 
 <script>
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
 
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-const chars = "01";
+const binary = "01";
 const fontSize = 18;
-let columns = Math.floor(canvas.width / fontSize);
-let drops = Array(columns).fill(0);
+const columns = Math.floor(canvas.width / fontSize);
+const drops = [];
+
+for(let i = 0; i < columns; i++) drops[i] = Math.random() * canvas.height;
 
 function draw() {
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#00ff55";
+    ctx.fillStyle = "#00FF00";
     ctx.font = fontSize + "px monospace";
 
-    for(let i=0;i<drops.length;i++){
-        const text = chars[Math.floor(Math.random()*2)];
-        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
-        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975){
-            drops[i] = 0;
-        }
-        drops[i]++;
+    for(let i = 0; i < drops.length; i++) {
+        const text = binary.charAt(Math.floor(Math.random() * binary.length));
+        const x = i * fontSize;
+        const y = drops[i];
+        
+        if(x < window.innerWidth * 0.1 || x > window.innerWidth * 0.9 || y < canvas.height*0.1 || y > canvas.height*0.9){
+            ctx.globalAlpha = 0.7 + Math.random()*0.3;
+        } else ctx.globalAlpha = 0.2;
+
+        ctx.fillText(text, x, y);
+        drops[i] += fontSize;
+        if(drops[i] > canvas.height) drops[i] = -fontSize;
     }
+
     requestAnimationFrame(draw);
 }
+
 draw();
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
