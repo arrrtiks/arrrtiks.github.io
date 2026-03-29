@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Военно-спортивная подготовка",
+    "date": "29.03.2026",
+    "image": "images/gallery1.jpg"
+  },
+  {
+    "title": "Открытый урок",
+    "date": "29.03.2026",
+    "image": "images/gallery2.jpg"
+  },
+  {
+    "title": "Мероприятие в библиотеке",
+    "date": "29.03.2026",
+    "image": "images/gallery3.jpg"
+  },
+  {
+    "title": "Спортивное состязание",
+    "date": "29.03.2026",
+    "image": "images/gallery4.jpg"
+  },
+  {
+    "title": "Учебный процесс",
+    "date": "29.03.2026",
+    "image": "images/gallery5.jpg"
+  },
+  {
+    "title": "Книжная выставка",
+    "date": "29.03.2026",
+    "image": "images/gallery6.jpg"
+  },
+  {
+    "title": "Мобильная библиотека",
+    "date": "29.03.2026",
+    "image": "images/gallery7.jpg"
+  }
+]
